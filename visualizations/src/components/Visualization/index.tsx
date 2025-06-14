@@ -1,4 +1,4 @@
-import createVisualization from 'components/Visualization/createVisualization'
+import { createVisualization } from 'components/Visualization/createVisualization'
 import { useEffect, useRef, useState } from 'react'
 import handleCanvas from 'components/Visualization/handleCanvas'
 

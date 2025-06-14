@@ -1,15 +1,18 @@
 import colors from 'data/colors'
 
-import type { Visualization } from '~types'
+import type { Visualization, VisualizationState } from '~types'
 
-function createVisualization(): Visualization {
+import pickRandom from '~utils/pickRandom'
+
+export function createVisualization(): Visualization {
   return {
-    backgroundColor: pickRamdom(colors),
+    backgroundColor: pickRandom(colors),
+    backgroundSplitColor: pickRandom(colors),
   }
 }
 
-function pickRamdom<T>(array: readonly T[]): T {
-  return array[Math.floor(Math.random() * array.length)]
+export function createVisualizationState(): VisualizationState {
+  return {
+    backgroundSplitTopAndBottom: [Math.random(), Math.random()],
+  }
 }
-
-export default createVisualization
