@@ -15,5 +15,6 @@ export function createVisualization(): Visualization {
 export function createVisualizationState(): VisualizationState {
   return {
     backgroundSplitTopAndBottom: [bound(Math.random(), 0.2, 0.8), bound(Math.random(), 0.3, 0.8)],
+    backgroundSplitSeparatorColor: Math.random() < 0.5 ? pickRandom(colors) : null,
   }
 }

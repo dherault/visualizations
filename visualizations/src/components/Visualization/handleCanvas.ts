@@ -30,13 +30,15 @@ function handleCanvas(canvas: HTMLCanvasElement, visualization: Visualization) {
   function drawBackgroundSplit() {
     if (!visualization.backgroundSplitColor) return
 
+    const splitWidth = 8
+
     const top: XY = {
       x: state.backgroundSplitTopAndBottom[0] * width,
-      y: 0,
+      y: -splitWidth / 2,
     }
     const bottom: XY = {
       x: state.backgroundSplitTopAndBottom[1] * width,
-      y: height,
+      y: height + splitWidth / 2,
     }
 
     _.beginPath()
@@ -47,6 +49,15 @@ function handleCanvas(canvas: HTMLCanvasElement, visualization: Visualization) {
     _.lineTo(0, 0)
     _.fillStyle = visualization.backgroundSplitColor
     _.fill()
+
+    if (!state.backgroundSplitSeparatorColor) return
+
+    _.beginPath()
+    _.moveTo(top.x, top.y)
+    _.lineTo(bottom.x, bottom.y)
+    _.strokeStyle = state.backgroundSplitSeparatorColor
+    _.lineWidth = splitWidth
+    _.stroke()
   }
 
   function update() {

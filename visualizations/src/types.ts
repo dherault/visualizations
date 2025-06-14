@@ -5,6 +5,7 @@ export type Visualization = {
 
 export type VisualizationState = {
   backgroundSplitTopAndBottom: [number, number];
+  backgroundSplitSeparatorColor: string | null;
 }
 
 export type XY = {
