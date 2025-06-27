@@ -1,6 +1,5 @@
 import type { Visualization, XY } from '~components/Visualization/types'
 import { createVisualizationState } from '~components/Visualization/createVisualization'
-import { MAX_SPLIT_RATIO, MAX_TICK, MIN_SPLIT_RATIO, SPLIT_ANIMATION_SPEED } from '~components/Visualization/constants'
 
 function handleCanvas(canvas: HTMLCanvasElement, visualization: Visualization) {
   const _ = canvas.getContext('2d')!
@@ -20,6 +19,8 @@ function handleCanvas(canvas: HTMLCanvasElement, visualization: Visualization) {
 
   const state = createVisualizationState()
 
+  console.log('state', state)
+
   function draw() {
     _.fillStyle = visualization.backgroundColor
     _.fillRect(0, 0, width, height)
@@ -36,36 +37,36 @@ function handleCanvas(canvas: HTMLCanvasElement, visualization: Visualization) {
     const end: XY = { x: 0, y: 0 }
 
     if (visualization.backgroundSplitPositions[0] === 'top') {
-      start.x = width * state.backgroundSplitRatios[0]
+      start.x = width * visualization.backgroundSplitRatios[0]
       start.y = -splitWidth / 2
     }
     if (visualization.backgroundSplitPositions[0] === 'bottom') {
-      start.x = width * state.backgroundSplitRatios[0]
+      start.x = width * visualization.backgroundSplitRatios[0]
       start.y = height + splitWidth / 2
     }
     if (visualization.backgroundSplitPositions[0] === 'left') {
       start.x = -splitWidth / 2
-      start.y = height * state.backgroundSplitRatios[0]
+      start.y = height * visualization.backgroundSplitRatios[0]
     }
     if (visualization.backgroundSplitPositions[0] === 'right') {
       start.x = width + splitWidth / 2
-      start.y = height * state.backgroundSplitRatios[0]
+      start.y = height * visualization.backgroundSplitRatios[0]
     }
     if (visualization.backgroundSplitPositions[1] === 'top') {
-      end.x = width * state.backgroundSplitRatios[1]
+      end.x = width * visualization.backgroundSplitRatios[1]
       end.y = -splitWidth / 2
     }
     if (visualization.backgroundSplitPositions[1] === 'bottom') {
-      end.x = width * state.backgroundSplitRatios[1]
+      end.x = width * visualization.backgroundSplitRatios[1]
       end.y = height + splitWidth / 2
     }
     if (visualization.backgroundSplitPositions[1] === 'left') {
       end.x = -splitWidth / 2
-      end.y = height * state.backgroundSplitRatios[1]
+      end.y = height * visualization.backgroundSplitRatios[1]
     }
     if (visualization.backgroundSplitPositions[1] === 'right') {
       end.x = width + splitWidth / 2
-      end.y = height * state.backgroundSplitRatios[1]
+      end.y = height * visualization.backgroundSplitRatios[1]
     }
 
     _.fillStyle = visualization.backgroundSplitColor
@@ -105,19 +106,6 @@ function handleCanvas(canvas: HTMLCanvasElement, visualization: Visualization) {
   }
 
   function update() {
-    state.tick = (state.tick + state.animationSpeed) % MAX_TICK
-
-    if (visualization.isBackgroundSplitMoving) {
-      state.backgroundSplitRatios[0] += state.backgroundSplitDirection * SPLIT_ANIMATION_SPEED
-      state.backgroundSplitRatios[1] += state.backgroundSplitDirection * SPLIT_ANIMATION_SPEED
-
-      if (
-        state.backgroundSplitRatios[0] > MAX_SPLIT_RATIO || state.backgroundSplitRatios[0] < MIN_SPLIT_RATIO
-        || state.backgroundSplitRatios[1] > MAX_SPLIT_RATIO || state.backgroundSplitRatios[1] < MIN_SPLIT_RATIO
-      ) {
-        state.backgroundSplitDirection *= -1
-      }
-    }
   }
 
   let stopped = false

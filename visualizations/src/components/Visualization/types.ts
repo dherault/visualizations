@@ -7,14 +7,11 @@ export type Visualization = {
   backgroundSplitColor: string | null
   backgroundSplitSeparatorColor: string | null
   backgroundSplitPositions: [Position, Position]
-  isBackgroundSplitMoving: boolean
+  backgroundSplitRatios: [number, number]
 }
 
 export type VisualizationState = {
   tick: number
-  animationSpeed: number
-  backgroundSplitRatios: [number, number]
-  backgroundSplitDirection: Direction
 }
 
 export type XY = {

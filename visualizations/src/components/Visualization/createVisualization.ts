@@ -17,16 +17,12 @@ export function createRandomVisualization(): Visualization {
     backgroundSplitColor: chance(1) ? pickRandom(colors) : null,
     backgroundSplitSeparatorColor: chance(0.5) ? pickRandom(colors) : null,
     backgroundSplitPositions: [position1, position2],
-    // isBackgroundSplitMoving: chance(0.5),
-    isBackgroundSplitMoving: true,
+    backgroundSplitRatios: [bound(Math.random(), MIN_SPLIT_RATIO, MAX_SPLIT_RATIO), bound(Math.random(), MIN_SPLIT_RATIO, MAX_SPLIT_RATIO)],
   }
 }
 
 export function createVisualizationState(): VisualizationState {
   return {
     tick: 0,
-    animationSpeed: 0.1,
-    backgroundSplitRatios: [bound(Math.random(), MIN_SPLIT_RATIO, MAX_SPLIT_RATIO), bound(Math.random(), MIN_SPLIT_RATIO, MAX_SPLIT_RATIO)],
-    backgroundSplitDirection: chance(0.5) ? -1 : 1,
   }
 }
