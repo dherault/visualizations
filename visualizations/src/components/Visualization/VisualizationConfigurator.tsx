@@ -1,6 +1,6 @@
 import { type Dispatch, type SetStateAction, useCallback } from 'react'
 
-import type { Visualization } from '~types'
+import type { Visualization } from '~components/Visualization/types'
 
 import { Button } from '~components/ui/Button'
 import { createRandomVisualization } from '~components/Visualization/createVisualization'

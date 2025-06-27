@@ -2,7 +2,7 @@ import { createRandomVisualization } from 'components/Visualization/createVisual
 import { useEffect, useRef, useState } from 'react'
 import handleCanvas from 'components/Visualization/handleCanvas'
 
-import { type Visualization as VisualizationType } from '~types'
+import { type Visualization as VisualizationType } from '~components/Visualization/types'
 
 import VisualizationConfigurator from '~components/Visualization/VisualizationConfigurator'
 

@@ -14,7 +14,7 @@ export type VisualizationState = {
   tick: number
   animationSpeed: number
   backgroundSplitRatios: [number, number]
-  backgroundSplitDirections: [Direction, Direction]
+  backgroundSplitDirection: Direction
 }
 
 export type XY = {

@@ -1,7 +1,6 @@
 import colors from 'data/colors'
 
-import type { Position, Visualization, VisualizationState } from '~types'
-
+import type { Position, Visualization, VisualizationState } from '~components/Visualization/types'
 import { MAX_SPLIT_RATIO, MIN_SPLIT_RATIO } from '~components/Visualization/constants'
 
 import bound from '~utils/bound'
@@ -28,9 +27,6 @@ export function createVisualizationState(): VisualizationState {
     tick: 0,
     animationSpeed: 0.1,
     backgroundSplitRatios: [bound(Math.random(), MIN_SPLIT_RATIO, MAX_SPLIT_RATIO), bound(Math.random(), MIN_SPLIT_RATIO, MAX_SPLIT_RATIO)],
-    backgroundSplitDirections: [
-      chance(0.5) ? -1 : 1,
-      chance(0.5) ? -1 : 1,
-    ],
+    backgroundSplitDirection: chance(0.5) ? -1 : 1,
   }
 }
