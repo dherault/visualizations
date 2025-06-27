@@ -1,6 +1,7 @@
 import type { Visualization, XY } from '~types'
 
 import { createVisualizationState } from '~components/Visualization/createVisualization'
+import { MAX_SPLIT_RATIO, MAX_TICK, MIN_SPLIT_RATIO } from '~components/Visualization/constants'
 
 function handleCanvas(canvas: HTMLCanvasElement, visualization: Visualization) {
   const _ = canvas.getContext('2d')!
@@ -19,8 +20,6 @@ function handleCanvas(canvas: HTMLCanvasElement, visualization: Visualization) {
   _.scale(dpr, dpr)
 
   const state = createVisualizationState()
-
-  console.log('state', state)
 
   function draw() {
     _.fillStyle = visualization.backgroundColor
@@ -107,6 +106,15 @@ function handleCanvas(canvas: HTMLCanvasElement, visualization: Visualization) {
   }
 
   function update() {
+    state.tick = (state.tick + state.animationSpeed) % MAX_TICK
+
+    if (visualization.isBackgroundSplitMoving) {
+      state.backgroundSplitRatios[0] += state.backgroundSplitDirections[0] * 0.001
+      state.backgroundSplitRatios[1] += state.backgroundSplitDirections[1] * 0.001
+
+      if (state.backgroundSplitRatios[0] > MAX_SPLIT_RATIO || state.backgroundSplitRatios[0] < MIN_SPLIT_RATIO) state.backgroundSplitDirections[0] *= -1
+      if (state.backgroundSplitRatios[1] > MAX_SPLIT_RATIO || state.backgroundSplitRatios[1] < MIN_SPLIT_RATIO) state.backgroundSplitDirections[1] *= -1
+    }
   }
 
   let stopped = false

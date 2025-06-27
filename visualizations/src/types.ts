@@ -1,17 +1,23 @@
 export type Position = 'top' | 'bottom' | 'left' | 'right'
 
+export type Direction = -1 | 1
+
 export type Visualization = {
-  backgroundColor: string;
-  backgroundSplitColor: string | null;
-  backgroundSplitSeparatorColor: string | null;
-  backgroundSplitPositions: [Position, Position];
+  backgroundColor: string
+  backgroundSplitColor: string | null
+  backgroundSplitSeparatorColor: string | null
+  backgroundSplitPositions: [Position, Position]
+  isBackgroundSplitMoving: boolean
 }
 
 export type VisualizationState = {
-  backgroundSplitRatios: [number, number];
+  tick: number
+  animationSpeed: number
+  backgroundSplitRatios: [number, number]
+  backgroundSplitDirections: [Direction, Direction]
 }
 
 export type XY = {
-  x: number;
-  y: number;
+  x: number
+  y: number
 }

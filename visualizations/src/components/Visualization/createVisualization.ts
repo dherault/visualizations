@@ -2,6 +2,8 @@ import colors from 'data/colors'
 
 import type { Position, Visualization, VisualizationState } from '~types'
 
+import { MAX_SPLIT_RATIO, MIN_SPLIT_RATIO } from '~components/Visualization/constants'
+
 import bound from '~utils/bound'
 import { chance, pickRandom } from '~utils/random'
 
@@ -13,14 +15,22 @@ export function createRandomVisualization(): Visualization {
 
   return {
     backgroundColor: pickRandom(colors),
-    backgroundSplitColor: chance(0.5) ? pickRandom(colors) : null,
+    backgroundSplitColor: chance(1) ? pickRandom(colors) : null,
     backgroundSplitSeparatorColor: chance(0.5) ? pickRandom(colors) : null,
     backgroundSplitPositions: [position1, position2],
+    // isBackgroundSplitMoving: chance(0.5),
+    isBackgroundSplitMoving: true,
   }
 }
 
 export function createVisualizationState(): VisualizationState {
   return {
-    backgroundSplitRatios: [bound(Math.random(), 0.2, 0.8), bound(Math.random(), 0.2, 0.8)],
+    tick: 0,
+    animationSpeed: 0.1,
+    backgroundSplitRatios: [bound(Math.random(), MIN_SPLIT_RATIO, MAX_SPLIT_RATIO), bound(Math.random(), MIN_SPLIT_RATIO, MAX_SPLIT_RATIO)],
+    backgroundSplitDirections: [
+      chance(0.5) ? -1 : 1,
+      chance(0.5) ? -1 : 1,
+    ],
   }
 }
