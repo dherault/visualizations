@@ -20,6 +20,8 @@ function handleCanvas(canvas: HTMLCanvasElement, visualization: Visualization) {
 
   const state = createVisualizationState()
 
+  console.log('state', state)
+
   function draw() {
     _.fillStyle = visualization.backgroundColor
     _.fillRect(0, 0, width, height)
@@ -28,33 +30,77 @@ function handleCanvas(canvas: HTMLCanvasElement, visualization: Visualization) {
   }
 
   function drawBackgroundSplit() {
-    if (!visualization.hasBackgroudnSplit) return
+    if (!visualization.backgroundSplitColor) return
 
     const splitWidth = 8
 
-    const top: XY = {
-      x: state.backgroundSplitRatios[0] * width,
-      y: -splitWidth / 2,
+    const start: XY = { x: 0, y: 0 }
+    const end: XY = { x: 0, y: 0 }
+
+    if (visualization.backgroundSplitPositions[0] === 'top') {
+      start.x = width * state.backgroundSplitRatios[0]
+      start.y = -splitWidth / 2
     }
-    const bottom: XY = {
-      x: state.backgroundSplitRatios[1] * width,
-      y: height + splitWidth / 2,
+    if (visualization.backgroundSplitPositions[0] === 'bottom') {
+      start.x = width * state.backgroundSplitRatios[0]
+      start.y = height + splitWidth / 2
+    }
+    if (visualization.backgroundSplitPositions[0] === 'left') {
+      start.x = -splitWidth / 2
+      start.y = height * state.backgroundSplitRatios[0]
+    }
+    if (visualization.backgroundSplitPositions[0] === 'right') {
+      start.x = width + splitWidth / 2
+      start.y = height * state.backgroundSplitRatios[0]
+    }
+    if (visualization.backgroundSplitPositions[1] === 'top') {
+      end.x = width * state.backgroundSplitRatios[1]
+      end.y = -splitWidth / 2
+    }
+    if (visualization.backgroundSplitPositions[1] === 'bottom') {
+      end.x = width * state.backgroundSplitRatios[1]
+      end.y = height + splitWidth / 2
+    }
+    if (visualization.backgroundSplitPositions[1] === 'left') {
+      end.x = -splitWidth / 2
+      end.y = height * state.backgroundSplitRatios[1]
+    }
+    if (visualization.backgroundSplitPositions[1] === 'right') {
+      end.x = width + splitWidth / 2
+      end.y = height * state.backgroundSplitRatios[1]
     }
 
-    _.beginPath()
-    _.moveTo(0, 0)
-    _.lineTo(top.x, top.y)
-    _.lineTo(bottom.x, bottom.y)
-    _.lineTo(0, height)
-    _.lineTo(0, 0)
     _.fillStyle = visualization.backgroundSplitColor
+    _.beginPath()
+    if (visualization.backgroundSplitPositions[0] === 'top') _.moveTo(0, 0)
+    if (visualization.backgroundSplitPositions[0] === 'bottom') _.moveTo(0, height)
+    if (visualization.backgroundSplitPositions[0] === 'left') _.moveTo(0, 0)
+    if (visualization.backgroundSplitPositions[0] === 'right') _.moveTo(width, 0)
+    _.lineTo(start.x, start.y)
+    _.lineTo(end.x, end.y)
+    if (visualization.backgroundSplitPositions[1] === 'top') {
+      if (visualization.backgroundSplitPositions[0] === 'bottom') _.lineTo(0, 0)
+    }
+    if (visualization.backgroundSplitPositions[1] === 'bottom') {
+      if (visualization.backgroundSplitPositions[0] === 'top') _.lineTo(0, height)
+      if (visualization.backgroundSplitPositions[0] === 'left') _.lineTo(0, height)
+      if (visualization.backgroundSplitPositions[0] === 'right') _.lineTo(width, height)
+    }
+    if (visualization.backgroundSplitPositions[1] === 'left') {
+      if (visualization.backgroundSplitPositions[0] === 'right') _.lineTo(0, 0)
+    }
+    if (visualization.backgroundSplitPositions[1] === 'right') {
+      if (visualization.backgroundSplitPositions[0] === 'top') _.lineTo(width, 0)
+      if (visualization.backgroundSplitPositions[0] === 'bottom') _.lineTo(width, height)
+      if (visualization.backgroundSplitPositions[0] === 'left') _.lineTo(width, 0)
+    }
     _.fill()
 
-    if (!visualization.hasBackgroundSplitSeparator) return
+    if (!visualization.backgroundSplitSeparatorColor) return
 
     _.beginPath()
-    _.moveTo(top.x, top.y)
-    _.lineTo(bottom.x, bottom.y)
+    _.moveTo(start.x, start.y)
+    _.lineTo(end.x, end.y)
     _.strokeStyle = visualization.backgroundSplitSeparatorColor
     _.lineWidth = splitWidth
     _.stroke()

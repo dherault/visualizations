@@ -1,4 +1,4 @@
-import { createVisualization } from 'components/Visualization/createVisualization'
+import { createRandomVisualization } from 'components/Visualization/createVisualization'
 import { useEffect, useRef, useState } from 'react'
 import handleCanvas from 'components/Visualization/handleCanvas'
 
@@ -10,7 +10,7 @@ import useCanvasWidth from '~hooks/common/useCanvasWidth'
 
 function Visualization() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const [visualization, setVisualization] = useState<VisualizationType>(createVisualization())
+  const [visualization, setVisualization] = useState<VisualizationType>(createRandomVisualization())
   const width = useCanvasWidth()
 
   useEffect(() => {

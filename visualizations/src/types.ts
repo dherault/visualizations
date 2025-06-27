@@ -1,11 +1,14 @@
+export type Position = 'top' | 'bottom' | 'left' | 'right'
+
 export type Visualization = {
   backgroundColor: string;
-  backgroundSplitColor?: string;
+  backgroundSplitColor: string | null;
+  backgroundSplitSeparatorColor: string | null;
+  backgroundSplitPositions: [Position, Position];
 }
 
 export type VisualizationState = {
-  backgroundSplitTopAndBottom: [number, number];
-  backgroundSplitSeparatorColor: string | null;
+  backgroundSplitRatios: [number, number];
 }
 
 export type XY = {
